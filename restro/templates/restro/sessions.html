@@ -1,0 +1,17 @@
+{% extends "restro/layout.html"%}
+
+{% block body %}
+    <h1>All active sessions:</h1>
+    
+    <ul>
+        {% for s in session %}
+        <li>
+            <strong>Session ID:</strong> {{ s.session_key }} <br>
+            <strong>Session Data:</strong> {{ s.get_decoded }}
+        </li>
+        {% empty %}
+            <li>No sessions found.</li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

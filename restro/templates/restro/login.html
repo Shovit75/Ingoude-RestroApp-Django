@@ -1,0 +1,36 @@
+{% extends "restro/layout.html" %}
+{% load static %}
+
+{% block body %}
+
+<div class="loginbody">
+
+    <div class="head">
+        <h1>Login Page</h1>
+        <img src="{% static 'restro/login.png' %}" alt="loginpng" style="width: 200px; padding: 40px;">
+    </div>
+
+    {% if error %}
+    <p style="color: red; padding: 0 0 15px 0;">{{ error }}</p> 
+    {% endif %}
+
+    <div class="loginform">
+        <form action="{% url 'webuserlogin' %}" method="post">
+            {% csrf_token %}
+            <div class="username">
+                <label for="username">Username</label>
+                <input type="text" name="username">    
+            </div>
+            <div class="password">
+                <label for="password">Password</label>
+                <input type="password" name="password">    
+            </div>
+            <button class="buttonsubmit" type="submit">Login</button>
+        </form>
+    </div>
+
+    <a class="change" href="{% url 'webuserregister' %}">Register</a>
+
+</div>
+
+{% endblock %}

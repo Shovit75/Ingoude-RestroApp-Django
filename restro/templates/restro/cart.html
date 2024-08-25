@@ -1,0 +1,51 @@
+{% extends 'restro/layout.html'%}
+
+{% block body %}
+
+        <div class="cartwhole">
+            <div class="carthead">
+                <h2>My Cart</h2>
+            </div>
+        
+            {% if not cartitems %}
+            <div class="cartempty">
+                <p>Your Cart is Empty</p>
+            </div>
+            {% endif %}
+
+            <div class="cartbody">
+                <div class="cartitems">
+                    <div class="cartcard">
+                    {% for items in cartitems %}
+                    <ul>
+                        <li>{{ items.item_name }} -  ₹ {{ items.item_price }} x {{items.item_quantity}}</li>
+                        <a style="color: red; margin-left: 15px;" href="{% url 'deleteitem' items.item_id %}">Remove Item</a>
+                    </ul>
+                    {% endfor %}
+                    </div>
+                </div>
+            
+                <div class="cartvalues">
+                    {% if cartitems %}
+                    <div class="cartcard2">
+                    {% if messages %}
+                        <ul>
+                        {% for message in messages %}
+                            <li style="text-align: center; background-color: red; padding: 10px; margin: 10px; color: white; border-radius: 20px;" >{{ message }}</li>
+                        {% endfor %}
+                        </ul>
+                    {% endif %}
+
+                        <p>Total Items: {{totalitems}}</p>
+                        <p>Total Price:  ₹ {{totalprice}}</p>
+                        <div class="cartbuttons">
+                            <a href="{% url 'clearcart' %}">Clear Cart</a>
+                            <a href="{% url 'checkout' %}">Checkout</a>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+{% endblock %}

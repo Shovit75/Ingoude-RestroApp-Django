@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'restro/styles.css' %}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">
+            <a href="{% url 'index' %}">
+                <img src="{% static 'restro/res.png' %}" alt="logo">
+            </a>
+        </div>
+        <ul class="nav-links">
+            <li><a href="{% url 'index' %}">Home</a></li>
+            <li class="dropdown">
+                <a href="#categories">Categories</a>
+                <ul class="dropdown-menu">
+                    {% for c in cat %}
+                    <li>
+                        <a href="{% url 'category' c.id %}">{{c.name}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </li>
+            {% if request.session.webuser_id %}
+            <li><a href="{% url 'cart' %}">Cart ( {{cartcount}} )</a></li>
+            <li><a class="login-btn" href="{% url 'webuserlogout' %}">Logout</a></li>
+            {% else %}
+            <li><a class="login-btn" href="{% url 'webuserlogin' %}">Login</a></li>
+            {% endif %}           
+        </ul>
+        <div class="hamburger">
+            <img src="{% static 'restro/burger-menu-right-svgrepo-com.svg' %}" alt="menu button">
+        </div>
+    </nav>
+
+    <!-- body -->
+    {% block body %}
+    {% endblock %}
+
+    <!-- footer -->
+    <footer>
+        <ul class="foot-list-up">
+            <li class="up">
+                <a href="{% url 'index' %}">Home</a>
+            </li>
+            <li class="up">
+                <a href="{% url 'sessions' %}">Active Sessions</a>
+            </li>
+            {% if request.session.webuser_id%}
+            <li class="up">
+                <a href="{% url 'webuserlogout' %}">Logout</a>
+            </li>
+            {% else %}
+            <li class="up">
+                <a href="{% url 'webuserlogin' %}">Login</a>
+            </li>
+            {% endif %}
+        </ul>
+        <ul class="foot-list-down">
+            <li class="down">©️ Designed by SHOVIT</li>
+        </ul>
+    </footer>
+
+</body>
+<script src="{% static 'restro/navbar.js' %}"></script>
+</html>

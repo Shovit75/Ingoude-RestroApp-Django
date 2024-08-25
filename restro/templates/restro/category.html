@@ -1,0 +1,23 @@
+{% extends 'restro/index.html' %}
+
+{% block body %}
+
+    <div class="catbody">
+        <div class="head">
+            <h1>All Items in {{category.name}}</h1>
+        </div>
+        <div class="cat-items">
+                {% for item in items %}
+                        <div class="cat-card">
+                            <a href="{% url 'food' item.id %}">
+                                <img src="{{ item.image.url }}" alt="{{ item.name }}" style="width: 100%; height: 250px; border-radius: 25px 25px 0 0;">
+                                <p>{{item.name}} - ₹ {{item.price}}</p>
+                            </a>
+                        </div>
+                {% empty %}
+                    <p>No Items Added</p>
+                {% endfor %}
+            </ul>   
+        </div> 
+    </div>
+{% endblock %}

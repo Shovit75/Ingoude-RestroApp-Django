@@ -1,0 +1,104 @@
+{% extends "restro/layout.html"%}
+
+{% block body %}
+
+    {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li style="text-align: center; background-color: green; padding: 10px; color: white;" >{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <div class="main">
+        <div class="content">
+            <p class="title">Hello Gourmands,</p>
+            <p class="para">Greetings from Ingoude Kitchen.</p>
+        </div>
+    </div>
+
+    <div class="allbody">
+
+        <div class="fbi">
+            <div class="head">
+                <h1>Frequently Bought Items</h1>
+            </div>
+
+            <div class="fbi-foods">
+                {% for food in foods %}
+                    <a href="{% url 'food' food.id %}">
+                        <div class="card">
+                                <div class="card-img">
+                                    <img src="{{ food.image.url }}" alt="{{ food.name }}" class="image">
+                                </div>
+                                <div class="card-content">
+                                    <p>
+                                        {{food.name}}
+                                        ₹ {{food.price}}
+                                    </p>
+                                </div>
+                        </div>
+                    </a>
+                {% empty %}
+                    <p>No Foods Added</p>
+                {% endfor %}
+            </div>
+        </div>
+        
+        <div class="cat">
+            <div class="head">
+                <h1>Finest Categories</h1>
+            </div>
+
+            <div class="cat-all">
+                {% for c in featuredcat %}
+                <a href="{% url 'category' c.id %}">
+                    <div>
+                        <img src="{{ c.image.url }}" alt="{{ c.name }}" class="cat-img">
+                    </div>
+                    <div class="cat-content">
+                        {{c.name}}
+                    </div>
+                </a>
+                {% empty %}
+                    <li>No Categories Added</li>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="chef">
+            <div class="head">
+                <h1>Meet Our Qualified Chefs</h1>
+            </div>
+
+            <div class="chef-foods">
+                {% for chef in featuredchefs %}
+                    <div>
+                        <div class="card-img">
+                            <img src="{{ chef.image.url }}" alt="{{ chef.username }}" class="chefimage">
+                        </div>
+                        <div class="card-content">
+                            <p>{{chef.username}}</p>
+                            <p>( {{chef.designation}} )</p>
+                        </div>
+                    </div>
+                {% empty %}
+                    <p>No Chefs</p>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="map">
+            <div class="head">
+                <h1>Services Available All Over</h1>
+            </div>
+            <div class="location">
+                <!-- Your Google Maps Location Api -->
+                <iframe src="" width="80%" height="500px" style="border: 2px solid #EADDCA; border-radius: 20px 20px 20px 20px ;" 
+                    allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div> 
+
+    </div>
+   
+{% endblock %}
